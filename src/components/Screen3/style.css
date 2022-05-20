@@ -1,0 +1,113 @@
+.seats {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 141px;
+}
+.seats > p {
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.04em;
+    color: #293845;
+    margin-bottom: 40px;
+}
+.seatsSelect {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.seat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #C3CFD9;
+    border: 1px solid #808F9D;
+    border-radius: 50%;
+    padding: 5px;
+    margin-left: 3.5px;
+    margin-right: 3.5px;
+    margin-bottom: 18px;
+}
+.seat > p {
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0.04em;
+    color: #000000
+}
+.selected {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+}
+.seatOptions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 13.5px;
+    margin-right: 13.5px;
+}
+.seatOptions h3 {
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: -0.013em;
+    color: #4E5A65;
+}
+.seatsDescription {
+    display: flex;
+}
+.free {
+    background: #C3CFD9;
+    border: 1px solid #808F9D;
+}
+.choice {
+    background: #8DD7CF;
+    border: 1px solid #1AAE9E;
+}
+.occupied {
+    background: #FBE192;
+    border: 1px solid #F7C52B;
+}
+.reservationIn::placeholder {
+    font-style: italic;
+    font-size: 15px;
+    line-height: 21px;
+    color: #AFAFAF
+}
+.reservationIn {
+    padding: 15px 0;
+    padding-left: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    border-radius: 3px;
+    margin-bottom: 7px;
+    width: 90%;
+}
+.seats form {
+    width: 100%;
+    margin-top: 41px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 57px;
+}
+.userInfo label {
+    margin-bottom: 5px;
+    width: 90%;
+}
+.reserve {
+    padding: 8px 20px;
+    border: none;
+    background: #E8833A;
+    border-radius: 3px;
+}
+.reserve h3 {
+    font-size: 15px;
+    line-height: 21px;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
