@@ -1,0 +1,40 @@
+.final {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.final p{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #247A6B;
+    word-wrap: break-word;
+    width: 50%;
+    margin-bottom: 40px;
+}
+.session-info, .seats-info, .buyer-info {
+    margin-left: 29px;
+    width: calc(100% - 29px);
+    margin-bottom: 30px;
+}
+.session-info h3, .seats-info h3, .buyer-info h3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.04em;
+    color: #293845;
+    margin-bottom: 7px;
+}
+.session-info h4, .seats-info h4, .buyer-info h4 {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: 0.04em;
+    color: #293845;
+}
+
+/* ESTILO DO BOTÃO VINDO DO CSS DA TELA 3 CLASS=RESERVE */

@@ -1,19 +1,20 @@
 import "./style.css";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from "react";
 import axios from "axios";
 
 function Seat({seatNumber, isAvailable, reserves, setReserves, id}) {
 
     const [choice, setChoice] = useState("");
+    let newSeat = {seatNumber: seatNumber, id: id};
 
     function select () {
         if (choice===""){
             setChoice("choice");
-            setReserves([...reserves, id]);
+            setReserves([...reserves, newSeat]);
         } else {
             for (let i=0; i<reserves.length; i++){
-                if (reserves[i]===id) {
+                if (reserves[i].seatNumber===seatNumber) {
                     reserves.splice(i, 1);
                     break;
                 }
@@ -42,17 +43,26 @@ function Seat({seatNumber, isAvailable, reserves, setReserves, id}) {
 
 }
 
-export default function Screen3() {
+export default function Screen3({reserves, setReserves, name, setName, cpf, setCpf, setFinalId}) {
 
     const {idSession} = useParams();
     const [seats, setSeats] = useState({seats:[{}], movie:"", day:""});
-    const [name, setName] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [reserves, setReserves] = useState([]);
+
+    let navigate=useNavigate();
+
+    const routeChange = (e) => {
+        e.preventDefault();
+        const maxCPFLength = 11;
+        if (name && cpf.length===maxCPFLength) {
+            let path = `/sucesso`; 
+            navigate(path);
+        }
+    }
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSession}/seats`);
         promise.then(info => setSeats(info.data));
+        setFinalId(idSession);
     }, []);
 
     function verifyCpf(e) {
@@ -88,14 +98,13 @@ export default function Screen3() {
 
             <form className="userInfo" action="">
                 <label htmlFor="nome">Nome do comprador:</label>
-                <input id="nome" className="reservationIn" type="text" placeholder="Digite seu nome..." value={name} onChange={(e) => setName(e.target.value)}/>
+                <input id="nome" className="reservationIn" type="text" placeholder="Digite seu nome..." value={name} onChange={(e) => setName(e.target.value)} required/>
                 <label htmlFor="cpf">CPF do comprador:</label>
-                <input id="cpf" className="reservationIn" type="number" placeholder="Digite seu CPF..." value={cpf} onChange={(e) => verifyCpf(e)}/>
+                <input id="cpf" className="reservationIn" type="number" placeholder="Digite seu CPF..." value={cpf} onChange={(e) => verifyCpf(e)} required/>
+                <button type="submit" className="reserve" onClick={routeChange}>
+                    <h3>Reservar assento(s)</h3>
+                </button>
             </form>
-
-            <button className="reserve" onClick={() => console.log(reserves)}>
-                <h3>Reservar assento(s)</h3>
-            </button>
 
             <div className="footer">
                 <div className="footer-img">
