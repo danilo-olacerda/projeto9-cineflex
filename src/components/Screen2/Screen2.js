@@ -26,9 +26,11 @@ function Session({weekday, date, showtime}) {
     )
 }
 
-export default function Screen2() {
+export default function Screen2({setLastpage}) {
 
     const {movieID} = useParams();
+    let novoPath = `/filme/${movieID}`;
+    setLastpage(novoPath);
     const [items, setItems] = useState({days: []});
     
     useEffect(()=>{
@@ -40,7 +42,7 @@ export default function Screen2() {
 
     return (
         <>
-            <Backbutton />
+            <Backbutton last={"/"}/>
             <div className="sessions">
                 <p>Selecione o horário</p>
 

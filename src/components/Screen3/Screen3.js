@@ -46,7 +46,7 @@ function Seat({seatNumber, isAvailable, reserves, setReserves, id}) {
 
 }
 
-export default function Screen3({reserves, setReserves, name, setName, cpf, setCpf, setFinalId}) {
+export default function Screen3({reserves, setReserves, setFinalId, lastpage}) {
 
     const {idSession} = useParams();
     const [seats, setSeats] = useState({seats:[{}], movie:"", day:""});
@@ -81,7 +81,7 @@ export default function Screen3({reserves, setReserves, name, setName, cpf, setC
 
     return (
     <>
-        <Backbutton />
+        <Backbutton last={lastpage}/>
         <div className="seats">
             <p>Selecione o(s) assento(s)</p>
 

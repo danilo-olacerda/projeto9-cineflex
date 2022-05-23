@@ -1,9 +1,13 @@
-import "./style.css"
+import "./style.css";
+import {Link} from "react-router-dom";
 
-export default function Backbutton () {
+export default function Backbutton ({last}) {
+    console.log(last)
     return (
         <>
-            <div className="Backbutton">⬅️</div>
+            <Link to={last}>
+                <div className="Backbutton">⬅️</div>
+            </Link>
         </>
     )
 }

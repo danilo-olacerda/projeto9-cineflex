@@ -18,8 +18,8 @@ export default function App() {
       <Top />
       <Routes>
         <Route path="/" element={<Screen1 />} />
-        <Route path="/filme/:movieID" element={<Screen2 />}/>
-        <Route path="/sessao/:idSession" element={<Screen3 reserves={reserves} setReserves={setReserves} setFinalId={setFinalId}/>}/>
+        <Route path="/filme/:movieID" element={<Screen2 setLastpage={setLastpage} />}/>
+        <Route path="/sessao/:idSession" element={<Screen3 reserves={reserves} setReserves={setReserves} setFinalId={setFinalId} lastpage={lastpage}/>}/>
         <Route path="/sucesso" element={<Screen4 reserves={reserves} finalId={finalId} setReserves={setReserves} />}/>
       </Routes>
 		</BrowserRouter>
