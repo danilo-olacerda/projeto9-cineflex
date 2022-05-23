@@ -24,11 +24,13 @@ export default function Screen1 () {
     }, []);
 
     return (
-    <div className="main-content">
-        <p>Selecione o filme</p>
-        <div className="movies">
-            {items.map((infos,i) => <Movie key={i} image={infos.posterURL} id={infos.id}/>)}
+    <>
+        <div className="main-content">
+            <p>Selecione o filme</p>
+            <div className="movies">
+                {items.map((infos,i) => <Movie key={i} image={infos.posterURL} id={infos.id}/>)}
+            </div>
         </div>
-    </div>
+    </>
     )
 }

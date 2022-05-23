@@ -2,11 +2,13 @@ import "./style.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from "react";
 import axios from "axios";
+import Inputs from "./Inputs";
+import Backbutton from "../Backbutton/Backbutton";
 
 function Seat({seatNumber, isAvailable, reserves, setReserves, id}) {
 
     const [choice, setChoice] = useState("");
-    let newSeat = {seatNumber: seatNumber, id: id};
+    let newSeat = {seatNumber: seatNumber, id: id, valid: false, name: "", cpf: ""};
 
     function select () {
         if (choice===""){
@@ -16,6 +18,7 @@ function Seat({seatNumber, isAvailable, reserves, setReserves, id}) {
             for (let i=0; i<reserves.length; i++){
                 if (reserves[i].seatNumber===seatNumber) {
                     reserves.splice(i, 1);
+                    setReserves([...reserves]);
                     break;
                 }
             }
@@ -49,11 +52,21 @@ export default function Screen3({reserves, setReserves, name, setName, cpf, setC
     const [seats, setSeats] = useState({seats:[{}], movie:"", day:""});
 
     let navigate=useNavigate();
+    
+    function check () {
+        if (reserves.length===0)
+        return false;
+        for (let i=0; i<reserves.length; i++){
+            if (!reserves[i].valid){
+                return false;
+            }
+        }
+        return true;
+    }
 
     const routeChange = (e) => {
         e.preventDefault();
-        const maxCPFLength = 11;
-        if (name && cpf.length===maxCPFLength) {
+        if (check()) {
             let path = `/sucesso`; 
             navigate(path);
         }
@@ -63,14 +76,12 @@ export default function Screen3({reserves, setReserves, name, setName, cpf, setC
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSession}/seats`);
         promise.then(info => setSeats(info.data));
         setFinalId(idSession);
+        setReserves([]);
     }, []);
 
-    function verifyCpf(e) {
-        if (cpf.length < 11 || e.nativeEvent.inputType==="deleteContentBackward")
-        setCpf(e.target.value);
-    }
-
     return (
+    <>
+        <Backbutton />
         <div className="seats">
             <p>Selecione o(s) assento(s)</p>
 
@@ -97,10 +108,7 @@ export default function Screen3({reserves, setReserves, name, setName, cpf, setC
             </div>
 
             <form className="userInfo" action="">
-                <label htmlFor="nome">Nome do comprador:</label>
-                <input id="nome" className="reservationIn" type="text" placeholder="Digite seu nome..." value={name} onChange={(e) => setName(e.target.value)} required/>
-                <label htmlFor="cpf">CPF do comprador:</label>
-                <input id="cpf" className="reservationIn" type="number" placeholder="Digite seu CPF..." value={cpf} onChange={(e) => verifyCpf(e)} required/>
+                {reserves.map((data, i)=> <Inputs key={i} seatNumber={data.seatNumber} data={data}/>)}
                 <button type="submit" className="reserve" onClick={routeChange}>
                     <h3>Reservar assento(s)</h3>
                 </button>
@@ -117,5 +125,7 @@ export default function Screen3({reserves, setReserves, name, setName, cpf, setC
             </div>
 
         </div>
+
+    </>
     )
 }

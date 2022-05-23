@@ -10,9 +10,8 @@ import "../../styles/style.css"
 export default function App() {
 
   const [reserves, setReserves] = useState([]);
-  const [cpf, setCpf] = useState("");
-  const [name, setName] = useState("");
   const [finalId, setFinalId] = useState(0);
+  const [lastpage, setLastpage] = useState("/");
 
   return (
     <BrowserRouter>
@@ -20,8 +19,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Screen1 />} />
         <Route path="/filme/:movieID" element={<Screen2 />}/>
-        <Route path="/sessao/:idSession" element={<Screen3 reserves={reserves} setReserves={setReserves} name={name} setName={setName} cpf={cpf} setCpf={setCpf} setFinalId={setFinalId}/>}/>
-        <Route path="/sucesso" element={<Screen4 reserves={reserves} name={name} cpf={cpf} finalId={finalId} setReserves={setReserves} setCpf={setCpf} setName={setName}/>}/>
+        <Route path="/sessao/:idSession" element={<Screen3 reserves={reserves} setReserves={setReserves} setFinalId={setFinalId}/>}/>
+        <Route path="/sucesso" element={<Screen4 reserves={reserves} finalId={finalId} setReserves={setReserves} />}/>
       </Routes>
 		</BrowserRouter>
   );

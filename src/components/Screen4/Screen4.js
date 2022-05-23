@@ -3,20 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-export default function Screen4({reserves, name, cpf, finalId, setReserves, setCpf, setName}) {
-
-    const [seats, setSeats] = useState({name:"", movie:"", day:""});
-
-    useEffect(()=>{
-
-        let newReserve = {ids: [], name: name, cpf: cpf};
-        for (let i=0; i<reserves.length; i++) {
-            newReserve.ids.push(reserves[i].id);
-        }
-        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", newReserve);
-        let promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${finalId}/seats`);
-        promise.then(info => setSeats(info.data));
-    },[]);
+function Seats({seat, name, cpf}){
 
     function newCpf() {
         let aux='';
@@ -32,12 +19,39 @@ export default function Screen4({reserves, name, cpf, finalId, setReserves, setC
     }
 
     let stringCPF = newCpf();
+
+    return (
+        <>
+            <div className="buyer-info">
+                <h3>Comprador (Poltrona {seat})</h3>
+                <h4>Nome: {name}</h4>
+                <h4>CPF: {stringCPF}</h4>
+            </div>
+        </>
+    )
+}
+
+export default function Screen4({reserves, finalId, setReserves}) {
+
+    const [seats, setSeats] = useState({name:"", movie:"", day:""});
+
+    useEffect(()=>{
+
+        let newReserve = {ids: [], compradores:[]};
+        for (let i=0; i<reserves.length; i++) {
+            let comprador={idAssento: reserves[i].id, nome: reserves[i].name, cpf: reserves[i].cpf}
+            newReserve.ids.push(reserves[i].id);
+            newReserve.compradores.push(comprador);
+        }
+        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", newReserve);
+        let promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${finalId}/seats`);
+        promise.then(info => setSeats(info.data));
+    },[]);
+
     let navigate=useNavigate();
 
     function backhome() {
         setReserves([]);
-        setName("");
-        setCpf("");
         let path = `/`; 
         navigate(path);
     }
@@ -54,11 +68,7 @@ export default function Screen4({reserves, name, cpf, finalId, setReserves, setC
                 <h3>Ingressos</h3>
                 {reserves.map((info, i) => <h4 key={i}>Assento {info.seatNumber}</h4>)}
             </div>
-            <div className="buyer-info">
-                <h3>Comprador</h3>
-                <h4>Nome: {name}</h4>
-                <h4>CPF: {stringCPF}</h4>
-            </div>
+            {reserves.map((data, i) => <Seats key={i} name={data.name} cpf={data.cpf} seat={data.seatNumber} />)}
             <button className="reserve" onClick={backhome}>
                 <h3>Voltar pra Home</h3>
             </button>
