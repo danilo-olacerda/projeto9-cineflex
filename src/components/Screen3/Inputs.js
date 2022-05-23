@@ -8,10 +8,11 @@ export default function Inputs({seatNumber, data}) {
     function verifyCpf(e) {
         
         const maxLength=11;
+        const minLength=1;
         if (cpf.length < maxLength || e.nativeEvent.inputType==="deleteContentBackward"){
             setCpf(e.target.value);
         }
-        if (cpf.length===maxLength && name){
+        if (cpf.length>minLength && name){
             data.valid=true;
         } else {
             data.valid=false;
@@ -21,8 +22,8 @@ export default function Inputs({seatNumber, data}) {
     function verifyName(e) {
         setName(e.target.value);
 
-        const maxLength=11;
-        if (cpf.length===maxLength && name){
+        const minLength=1;
+        if (cpf.length>minLength && name){
             data.valid=true;
         } else {
             data.valid=false;
